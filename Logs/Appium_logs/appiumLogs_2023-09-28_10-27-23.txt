@@ -1,0 +1,19 @@
+2023-09-28 07:27:30:617 [Appium] Welcome to Appium v2.1.3
+2023-09-28 07:27:30:621 [Appium] Non-default server args:
+2023-09-28 07:27:30:623 [Appium] { basePath: '/wd/hub', port: 54585 }
+2023-09-28 07:27:30:624 [Appium] Attempting to load driver uiautomator2...
+2023-09-28 07:27:30:626 [Appium] Requiring driver at C:\Users\serars\.appium\node_modules\appium-uiautomator2-driver
+2023-09-28 07:27:31:789 [Appium] Appium REST http interface listener started on http://0.0.0.0:54585/wd/hub
+2023-09-28 07:27:31:794 [Appium] You can provide the following URLs in your client code to connect to this server:
+2023-09-28 07:27:31:794 [Appium] 	http://172.21.240.1:54585/wd/hub
+2023-09-28 07:27:31:795 [Appium] 	http://192.168.1.37:54585/wd/hub
+2023-09-28 07:27:31:795 [Appium] 	http://127.0.0.1:54585/wd/hub (only accessible from the same host)
+2023-09-28 07:27:31:795 [Appium] Available drivers:
+2023-09-28 07:27:31:796 [Appium]   - uiautomator2@2.29.10 (automationName 'UiAutomator2')
+2023-09-28 07:27:31:797 [Appium] No plugins have been installed. Use the "appium plugin" command to install the one(s) you want to use.
+2023-09-28 07:27:32:035 [HTTP] --> GET /wd/hub/status
+2023-09-28 07:27:32:036 [HTTP] {}
+2023-09-28 07:27:32:038 [AppiumDriver@1fa6] Calling AppiumDriver.getStatus() with args: []
+2023-09-28 07:27:32:039 [AppiumDriver@1fa6] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.1.3"}}
+2023-09-28 07:27:32:047 [HTTP] <-- GET /wd/hub/status 200 10 ms - 110
+2023-09-28 07:27:32:048 [HTTP] 

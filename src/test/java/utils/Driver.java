@@ -13,49 +13,44 @@ import java.net.URL;
 
 
 public class Driver {
-    private static AppiumDriver<MobileElement> appiumDriver;
 
-    public static AppiumDriver getAppiumDriver() {
-        URL appiumServerURL = null;
+    private static AndroidDriver<MobileElement> appiumDriver;
+
+    public static AndroidDriver<MobileElement> getAppiumDriver() {
+
+        DesiredCapabilities caps = new DesiredCapabilities();
+
+        caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, ConfigReader.getProperty("automationName"));
+        caps.setCapability(MobileCapabilityType.PLATFORM_NAME, ConfigReader.getProperty("platformName"));
+        caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, ConfigReader.getProperty("platformVersion"));
+        caps.setCapability(MobileCapabilityType.DEVICE_NAME, ConfigReader.getProperty("deviceName"));
+        caps.setCapability(MobileCapabilityType.APP, ConfigReader.getProperty("appPath"));
+        caps.setCapability(MobileCapabilityType.NO_RESET, true);
+        caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "60000");
+
         try {
-            appiumServerURL = new URL("http:127.0.0.1:4723/wd/hub");
+            appiumDriver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        if (appiumDriver == null) {
-            DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-            desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, ConfigReader.getProperty("automationName"));
-            desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, ConfigReader.getProperty("platformName"));
-            desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, ConfigReader.getProperty("platformVersion"));
-            desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, ConfigReader.getProperty("deviceName"));
-            desiredCapabilities.setCapability(MobileCapabilityType.APP, ConfigReader.getProperty("appPath"));
-            desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, true);
-            desiredCapabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "60000");
-
-            if (ConfigReader.getProperty("platformName").equals("android")) {
-                //if you do not provide app path so you should provide "appPackage" and "appActivity"
-                //desiredCapabilities.setCapability("appPackage", "");
-                //desiredCapabilities.setCapability("appActivity", "");
-                assert appiumServerURL != null;
-                appiumDriver = new AndroidDriver(appiumServerURL, desiredCapabilities);
-            } else if (ConfigReader.getProperty("platformName").equals("iOS")) {
-                //if you do not provide app path so you should use "bundleId"
-//                desiredCapabilities.setCapability("bundleId",ConfigReader.getProperty("iosBundleId"));
-                assert appiumServerURL != null;
-                appiumDriver = new IOSDriver(appiumServerURL, desiredCapabilities);
-            } else {
-                throw new UnsupportedOperationException("Invalid Platform Name " + ConfigReader.getProperty("platformName"));
-            }
+            throw new RuntimeException(e);
         }
         return appiumDriver;
     }
 
 
     public static void quitAppiumDriver() {
-        if (appiumDriver != null) {
-            appiumDriver.quit();
-            appiumDriver = null;
-        }
+        appiumDriver.quit();
+        appiumDriver = null;
+
     }
 }
+
+/*
+private AppiumDriverLocalService appiumServer = AppiumDriverLocalService.buildService(
+            new AppiumServiceBuilder()
+                    .withArgument(() -> "-pa", "/wd/hub"));
+
+
+                    String[] command = {"taskkill", "/F", "/IM", "node"};
+            runtime.exec(command);
+            System.out.println("Kill all nodes");
+ */
